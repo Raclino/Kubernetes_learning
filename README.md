@@ -6,11 +6,11 @@ This page is a documentation of my Kubernetes learning in order to pass the [CKA
 ##  - Installation
 You will need to follow the [official documentation](https://kubernetes.io/docs/setup/) to install K8s and his dependancy.
 
-## 1 - Schéma
+## 1 - Schema of the architecture
 
 ![](img/architecture_k8s.png)
 
-## Section 2: Core concepts
+## Section 2: Core concepts and high overview of components
 ![](img/core_architecture.png)
 
 ### Master 
@@ -121,6 +121,47 @@ It doesn't place them on the node, the kubelet(captain) does.
 1. Filter nodes
 2. Rank nodes
 
+
+#### Kubelet
+There are the one doing the work ask by the Master, they load and unload container on the ship as instructed by the scheduler and send back status on the node and the container on them.
+
+- *Register nodes*
+- *Create PODs*
+- *Monitor Node & PODs*
+If you use the kubeadm tool to deploy your cluster, **it doesn't automaticaly deploy kubelet** 
+To view kubelet options: 
+```bash
+ps -aux | grep kubelet
+```
+
+#### Kube-proxy
+Allow nodes to communicate with each other. It is a **process** deploy on a service expl:"*service:db*" with a static IP address and forward the trafic from a application node to a db node in this exemple through ip-tables on each node. **The service is not a POD, it only live in the kubernetes memory** 
+
+You can install kube-proxy by downloading it on the [kubernetes release page](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) 
+
+The *kubeadm* tool deploy it as pods on each node as DaemonSet so a single pod is always deploy on each node on the cluster.
+```bash
+kubectl get pods -n kube-system
+```
+NAME : kube-proxy-{{id}}
+```bash
+kubectl get daemonset -n kube-system
+```
+
+#### PODs
+PODs(process on nodes) are the smallest unit in a *kubernetes cluster*.
+A Pod represents a single instance of a running process in a cluster, and it can contain one or more containers. All containers in a Pod share the same network ***namespace***, which means they can all communicate with each other using *localhost*, and they can all access the same storage volumes. This makes it easy to run multiple containers that need to communicate with each other as part of a single application.
+*Exemple with a nginx image*:
+```bash
+kubectl run nginx --image nginx
+```
+it deploy a docker container by creating a *POD*.
+The *--image* parameter specify the image from the [docker Hub](https://hub.docker.com/) repository.
+
+To list all pods deploy on your cluster:
+```bash
+kubectl get pods
+```
 ## Section 3: Scheduling
 
 ## Section 4: Logging & Monitoring
