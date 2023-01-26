@@ -162,6 +162,40 @@ To list all pods deploy on your cluster:
 ```bash
 kubectl get pods
 ```
+
+#### ReplicaSets
+ReplicaSets is one of the principal controller.
+***High availability***
+The replication controller help us run multiples instances of a single Pod in a kubernetes cluster, thus providing us with high availability. 
+It unsure that the specified number of Pods are running at all times, even if it's 1 or 100.
+***Load balancing & Scaling***
+It create multiple Pods to share the load across them.
+The controller spans across multiple nodes in a cluster.
+*Replication controller* and *Replica Set* are not the same but share the same purpose. The replication controller is the older version and replica set the newer version.
+To create a replication controller from a yaml file:
+```bash
+kubectl create -f rc-definition.yaml
+```
+to view the replication created:
+```bash
+kubectl get replicationcontroller
+```
+When you need to update a replica by modifying the yaml, for exemples; the number of replica Set.
+You can update the replica set with the command
+```bash
+kubectl replace -f rc-definition.yaml
+```
+Another way to do it is with the command *scale*:
+```bash
+kubectl scale --replicas=6 -f rc-definition.yaml
+or
+kubectl scale --replicas=6 -f replicaset myapp-replicaset
+replicaset being the TYPE and myapp-replicaset the NAME
+```
+You can delete or replace all underlying PODs of a replicaSet with :
+```bash
+kubectl delete/replace replicaset myapp-replicaset
+```
 ## Section 3: Scheduling
 
 ## Section 4: Logging & Monitoring
