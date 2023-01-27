@@ -196,6 +196,36 @@ You can delete or replace all underlying PODs of a replicaSet with :
 ```bash
 kubectl delete/replace replicaset myapp-replicaset
 ```
+
+#### Services: 
+Kubernetes services help us connect applications together with other applications or users. Services enable loose cooupling between micro-services in our applications.
+Services is an object just like pods, replicaset etc. One of his use case is to lisen to a port on the node and forward request on that port to a port on that POD running the web application.
+
+**Services Types**:
+- ***NodePort*** :
+Service make a internal POD accessible by mapping port on the node to a port on the POD.
+![](img/nodePort.png)
+You then need to move the labels in the PODs definition file into the service definition file in the selector section, like in the exemple : 
+![](img/selectorNodePort.png)
+Once done you can create your service with kubectl create -f + {{yamlFile}} 
+```bash
+kubectl create -f service-definition.yml
+```
+You can then access it by curling it : 
+![](img/curlIPPort.png)
+In a case of singles PODs on multiple nodes, since each node share the same label, you will be able to ping each node IP on the same port: 
+![](img/multipleNode.png)
+- ***ClusterIP*** :
+The service create a virtual IP inside the cluster to enable communication between differents services such a
+
+To create such a service, you can move the labels into the selector part of your service-definition.yaml
+
+![](img/clusterIPService.png)
+
+- ***LoadBalancer*** :
+It provide a load balancer for our application in supported cloud provider. Exemple: To distribute load across the different web servers in your frontend tier. 
+![](img/loadBalancer.png)
+
 ## Section 3: Scheduling
 
 ## Section 4: Logging & Monitoring
