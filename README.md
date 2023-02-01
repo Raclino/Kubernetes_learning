@@ -1,6 +1,8 @@
 # Projet Kubernetes Learning documentation
 ## introduction
 This page is a documentation of my Kubernetes learning in order to pass the [CKA](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/) exam.
+
+The following contents are my notes in my learning journey, **ALWAYS FOLLOW THE [official documentation](https://kubernetes.io/docs/setup/)** in case of doubts or questions.
 #### Outils :
 * **Ubuntu_20** 
 ##  - Installation
