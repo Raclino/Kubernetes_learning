@@ -313,11 +313,11 @@ kubectl run nginx --image=nginx
 
 Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
 
-kubectl run nginx --image=nginx --dry-run=client -o yaml
+```kubectl run nginx --image=nginx --dry-run=client -o yaml```
 
 
 
-####Deployment
+#### Deployment
 Create a deployment
 
 ```kubectl create deployment --image=nginx nginx```
@@ -349,7 +349,8 @@ Another way to do this is to save the YAML definition to a file and modify
 You can then update the YAML file with the replicas or any other field before creating the deployment.
 
 
-
+To create the pod and the service named httpd using the image httpd:alpine targeting for exemple the port 80 :
+```kubectl run httpd --image=httpd:alpine --port=80 --expose```
 #### Service
 Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
 
