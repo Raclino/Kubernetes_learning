@@ -253,7 +253,7 @@ We saw differents way to creating resources in kubernetes through command line o
 1. Provision a VM by the name 'web-server'
 2. Install Nginx Software on it
 4. Edit configuration file to use port '8080'
-5. Load web pages to '/var/www/nginx' from GIT Repo - X
+5. Load web pages to '/var/www/ngin x' from GIT Repo - X
 6. Start NGINX server
 
 - ***Declarative***:
@@ -267,6 +267,11 @@ Code: GIT Repo - X
 
 ## Section 3: Scheduling
 
+#### Manual scheduling:
+Every POD has a field called nodeName that is not set by default, k8s add it automatically.
+The scheduler goes through all the pods that don't have it specify and then identifies the right node for the POD. Once identified, it schedules the POD on the node by setting the nodeName property by the name of the node by creating a binding object.
+If there is no scheduler to monitor and schedules node, the PODS stay in a pending state. You can mannualy assigns PODs to nodes yourself. Simply set the nodeName yourself while creating the POD. He then gate asign to the specify node.
+If u want to assigns a existing POD, u can create a Binding ressource, and a post request to the POD binding API, you must convert you yaml file to his json equivalent.  
 ## Section 4: Logging & Monitoring
 
 ## Section 5: Application Lifecycle Management
